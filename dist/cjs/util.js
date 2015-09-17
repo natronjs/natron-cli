@@ -33,6 +33,7 @@ var RC_FILE = ".natronrc";
 var NF_FILE = "natronfile";
 
 var findPath = _module2.Module._findPath;
+// Module._extensions
 
 function rcLookup(dir, rc) {
   var contents = undefined,

@@ -6,9 +6,16 @@
 export { main };
 import { fork } from "child_process";
 import { lookup } from "./util";
+import pkgJson from "../package";
+import assign from "object-assign";
+import minimist from "minimist";
 
-function main(args) {
-  if (args && args["--"] && args["--"].length) {
+function main(args = main.args) {
+  if (args["version"]) {
+    console.log("Natron CLI", `v${ pkgJson.version }`);
+    return;
+  }
+  if (args && args["--"]) {
     let { nfFile, rc, modulePath } = lookup(process.cwd());
     if (!nfFile) {
       console.error("Natronfile not found");
@@ -35,7 +42,33 @@ function main(args) {
     } else {
       console.error("Local Natron module not found");
     }
-  } else {
-    console.error("No arguments");
   }
 }
+
+main.args = () => {
+  let options = {
+    "boolean": ["debug", "global", "help", "version"],
+    "string": ["natronfile"],
+    "alias": {
+      "d": "debug",
+      "g": "global",
+      "h": "help",
+      "n": "natronfile",
+      "v": "version"
+    }
+  };
+  let argv = [];
+  for (let i = 2; i < process.argv.length; i++) {
+    let arg = process.argv[i];
+    if (!argv.stop) {
+      if (arg.charAt(0) !== "-") {
+        argv.push("--");
+        argv.stop = true;
+      } else if (arg === "--") {
+        argv.stop = true;
+      }
+    }
+    argv.push(arg);
+  }
+  return minimist(argv, assign(options, { "--": true }));
+}();

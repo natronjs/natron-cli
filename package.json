@@ -1,20 +1,29 @@
 {
   "name": "natron-cli",
-  "version": "0.1.0",
-  "description": "Run Tasks from the Command-Line.",
-  "keywords": [],
+  "version": "0.1.1",
+  "description": "Run Tasks from the Command-Line",
+  "keywords": [
+    "natron",
+    "task",
+    "runner",
+    "cli"
+  ],
+  "homepage": "http://natronjs.com/",
   "author": "Stefan Rumzucker",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/natronjs/natron-cli.git"
   },
+  "preferGlobal": true,
   "bin": {
-    "natron": "./bin/natron"
+    "natron": "bin/natron",
+    "natron-dev": "bin/natron-dev"
   },
   "scripts": {
-    "build": "natron build",
-    "build-install": "npm --prefix build install",
-    "test": "mocha"
+    "build": "npm --prefix build run build",
+    "build-install": "npm --prefix build install --production",
+    "test": "npm --prefix test run test",
+    "test-install": "npm --prefix test install --production"
   },
   "dependencies": {
     "graceful-fs": "^4.1.0",

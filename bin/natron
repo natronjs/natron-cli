@@ -1,2 +1,2 @@
 #!/usr/bin/env node
-require("../dist/cjs/main").main(require("../dist/cjs/args"));
+require("../dist/cjs/main").main();

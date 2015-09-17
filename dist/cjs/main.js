@@ -8,14 +8,34 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.main = main;
 
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) arr2[i] = arr[i]; return arr2; } else { return Array.from(arr); } }
 
 var _child_process = require("child_process");
 
 var _util = require("./util");
 
-function main(args) {
-  if (args && args["--"] && args["--"].length) {
+var _package = require("../package");
+
+var _package2 = _interopRequireDefault(_package);
+
+var _objectAssign = require("object-assign");
+
+var _objectAssign2 = _interopRequireDefault(_objectAssign);
+
+var _minimist = require("minimist");
+
+var _minimist2 = _interopRequireDefault(_minimist);
+
+function main() {
+  var args = arguments.length <= 0 || arguments[0] === undefined ? main.args : arguments[0];
+
+  if (args["version"]) {
+    console.log("Natron CLI", "v" + _package2["default"].version);
+    return;
+  }
+  if (args && args["--"]) {
     var _lookup = (0, _util.lookup)(process.cwd());
 
     var nfFile = _lookup.nfFile;
@@ -68,7 +88,33 @@ function main(args) {
     } else {
       console.error("Local Natron module not found");
     }
-  } else {
-    console.error("No arguments");
   }
 }
+
+main.args = (function () {
+  var options = {
+    "boolean": ["debug", "global", "help", "version"],
+    "string": ["natronfile"],
+    "alias": {
+      "d": "debug",
+      "g": "global",
+      "h": "help",
+      "n": "natronfile",
+      "v": "version"
+    }
+  };
+  var argv = [];
+  for (var i = 2; i < process.argv.length; i++) {
+    var arg = process.argv[i];
+    if (!argv.stop) {
+      if (arg.charAt(0) !== "-") {
+        argv.push("--");
+        argv.stop = true;
+      } else if (arg === "--") {
+        argv.stop = true;
+      }
+    }
+    argv.push(arg);
+  }
+  return (0, _minimist2["default"])(argv, (0, _objectAssign2["default"])(options, { "--": true }));
+})();
