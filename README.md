@@ -18,12 +18,17 @@
 [travis-img]: https://travis-ci.org/natronjs/natron-cli.svg
 [travis-url]: https://travis-ci.org/natronjs/natron-cli
 [readme-img]: https://img.shields.io/badge/read-me-orange.svg
-[readme-url]: https://natron.readme.io/
+[readme-url]: https://natron.readme.io/docs/module-natron-cli
 
 [gitter-img]: https://badges.gitter.im/Join%20Chat.svg
 [gitter-url]: https://gitter.im/natronjs/natron
 
-This module is part of [Natron][natron-url] and contains the command-line utility for running tasks defined in the `natronfile`.
+This module is part of [Natron][natron-url] and contains the
+command-line utility for running tasks defined in the Natronfile.
+
+## Documentation
+
+See the [documentation for natron-cli][readme-url].
 
 ## Usage
 
@@ -32,16 +37,15 @@ $ natron taskName [...taskArgs]
 ```
 
 ## Example
-`natronfile.js`
 
+`natronfile.js`
 ```js
-export function greet(name: string): void {
+export function greet(name) {
   console.log(`Hello ${name}`);
 }
 ```
 
 `.natronrc`
-
 ```json
 {
   "transpiler": "babel"
