@@ -1,16 +1,11 @@
-/*
- * natron-cli
- */
 "use strict";
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.main = main;
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) arr2[i] = arr[i]; return arr2; } else { return Array.from(arr); } }
 
 var _child_process = require("child_process");
 
@@ -20,19 +15,21 @@ var _package = require("../package");
 
 var _package2 = _interopRequireDefault(_package);
 
-var _objectAssign = require("object-assign");
-
-var _objectAssign2 = _interopRequireDefault(_objectAssign);
-
 var _minimist = require("minimist");
 
 var _minimist2 = _interopRequireDefault(_minimist);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } } /**
+                                                                                                                                                                                                     * @module natron-cli
+                                                                                                                                                                                                     */
 
 function main() {
   var args = arguments.length <= 0 || arguments[0] === undefined ? main.args : arguments[0];
 
   if (args["version"]) {
-    console.log("Natron CLI", "v" + _package2["default"].version);
+    console.log("Natron CLI", "v" + _package2.default.version);
     return;
   }
   if (args && args["--"]) {
@@ -68,8 +65,8 @@ function main() {
         _iteratorError = err;
       } finally {
         try {
-          if (!_iteratorNormalCompletion && _iterator["return"]) {
-            _iterator["return"]();
+          if (!_iteratorNormalCompletion && _iterator.return) {
+            _iterator.return();
           }
         } finally {
           if (_didIteratorError) {
@@ -80,7 +77,7 @@ function main() {
     }
     try {
       process.env.NATRON_RC = JSON.stringify(rc);
-    } catch (_) {}
+    } catch (_) {/* ... */}
 
     if (modulePath) {
       // Run local Natron module
@@ -116,5 +113,5 @@ main.args = (function () {
     }
     argv.push(arg);
   }
-  return (0, _minimist2["default"])(argv, (0, _objectAssign2["default"])(options, { "--": true }));
+  return (0, _minimist2.default)(argv, _extends(options, { "--": true }));
 })();

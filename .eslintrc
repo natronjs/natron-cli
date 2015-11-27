@@ -1,0 +1,6 @@
+{
+  "extends": "natron",
+  "rules": {
+    "no-console": [0]
+  }
+}

@@ -1,4 +1,4 @@
-/*
- * natron-cli
+/**
+ * @module natron-cli
  */
 module.exports = require("../package");

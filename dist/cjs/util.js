@@ -1,28 +1,19 @@
-/*
- * natron-cli
- */
 "use strict";
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; /**
+                                                                                                                                                                                                                                                                   * @module natron-cli
+                                                                                                                                                                                                                                                                   */
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.lookup = lookup;
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
 var _path = require("path");
 
-var _module2 = require("module");
+var _module = require("module");
 
-var _gracefulFs = require("graceful-fs");
-
-var _objectAssign = require("object-assign");
-
-var _objectAssign2 = _interopRequireDefault(_objectAssign);
-
-var _minimist = require("minimist");
-
-var _minimist2 = _interopRequireDefault(_minimist);
+var _fs = require("fs");
 
 var NODE_MODULES = "node_modules";
 
@@ -32,21 +23,21 @@ var NATRON_MODULE_PKG = "natron/package";
 var RC_FILE = ".natronrc";
 var NF_FILE = "natronfile";
 
-var findPath = _module2.Module._findPath;
+var findPath = _module.Module._findPath;
 // Module._extensions
 
 function rcLookup(dir, rc) {
   var contents = undefined,
       rcFile = (0, _path.resolve)(dir, RC_FILE);
   try {
-    contents = (0, _gracefulFs.readFileSync)(rcFile);
+    contents = (0, _fs.readFileSync)(rcFile);
   } catch (_) {
     return { rcFile: false, rc: rc };
   }
   try {
     var json = JSON.parse(contents);
     if (rc) {
-      json = (0, _objectAssign2["default"])(json, rc);
+      json = _extends(json, rc);
     }
     return { rcFile: rcFile, rc: json };
   } catch (err) {
@@ -93,7 +84,7 @@ function localModuleLookup(paths) {
 }
 
 function lookup(dir) {
-  for (var pre = undefined, cur = (0, _path.resolve)(dir); cur !== pre; _ref = [cur, (0, _path.dirname)(cur)], pre = _ref[0], cur = _ref[1], _ref) {
+  for (var pre, cur = (0, _path.resolve)(dir); cur !== pre; _ref = [cur, (0, _path.dirname)(cur)], pre = _ref[0], cur = _ref[1], _ref) {
     var _ref;
 
     var rcFile = undefined,
@@ -104,8 +95,8 @@ function lookup(dir) {
       // Lookup Natronfile
 
       var _rcLookup2 = rcLookup(cur);
-
       // Lookup .natronrc
+
       rcFile = _rcLookup2.rcFile;
       rc = _rcLookup2.rc;
 

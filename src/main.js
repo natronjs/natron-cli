@@ -1,10 +1,9 @@
-/*
- * natron-cli
+/**
+ * @module natron-cli
  */
 import {fork} from "child_process";
 import {lookup} from "./util";
 import pkgJson from "../package";
-import assign from "object-assign";
 import minimist from "minimist";
 
 export function main(args = main.args): void {
@@ -31,7 +30,7 @@ export function main(args = main.args): void {
     }
     try {
       process.env.NATRON_RC = JSON.stringify(rc);
-    } catch (_) {}
+    } catch (_) { /* ... */ }
 
     if (modulePath) {
       // Run local Natron module
@@ -74,5 +73,5 @@ main.args = (() => {
     }
     argv.push(arg);
   }
-  return minimist(argv, assign(options, {"--": true}));
+  return minimist(argv, Object.assign(options, {"--": true}));
 })();

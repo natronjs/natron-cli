@@ -1,6 +1,6 @@
 {
   "name": "natron-cli",
-  "version": "0.1.1",
+  "version": "0.2.0-beta.1",
   "description": "Run Tasks from the Command-Line",
   "keywords": [
     "natron",
@@ -16,22 +16,21 @@
   },
   "preferGlobal": true,
   "bin": {
-    "natron": "bin/natron",
-    "natron-dev": "bin/natron-dev"
+    "natron": "bin/natron"
   },
-  "scripts": {
-    "build": "npm --prefix build run build",
-    "build-install": "npm --prefix build install --production",
-    "test": "npm --prefix test run test",
-    "test-install": "npm --prefix test install --production"
+  "engines": {
+    "node": ">=0.12"
   },
   "dependencies": {
-    "graceful-fs": "^4.1.0",
-    "minimist": "^1.2.0",
-    "object-assign": "^4.0.0"
+    "minimist": "^1.2.0"
   },
   "devDependencies": {
-    "babel-core": "^5.8.0"
+    "babel-core": "^6.0.0",
+    "babel-plugin-transform-flow-strip-types": "^6.0.0",
+    "babel-plugin-transform-object-assign": "^6.0.0",
+    "babel-preset-es2015": "^6.0.0",
+    "babel-preset-stage-0": "^6.0.0",
+    "babel-register": "^6.0.0"
   },
   "license": "MIT"
 }

@@ -1,11 +1,9 @@
-/*
- * natron-cli
+/**
+ * @module natron-cli
  */
 import {resolve, dirname} from "path";
 import {Module} from "module";
-import {readFileSync} from "graceful-fs";
-import assign from "object-assign";
-import minimist from "minimist";
+import {readFileSync} from "fs";
 
 const NODE_MODULES = "node_modules";
 
@@ -18,7 +16,7 @@ const NF_FILE = "natronfile";
 let findPath = Module._findPath;
 // Module._extensions
 
-function rcLookup(dir: string, rc?: object): object {
+function rcLookup(dir: string, rc?: Object): Object {
   let contents, rcFile = resolve(dir, RC_FILE);
   try {
     contents = readFileSync(rcFile);
@@ -28,7 +26,7 @@ function rcLookup(dir: string, rc?: object): object {
   try {
     let json = JSON.parse(contents);
     if (rc) {
-      json = assign(json, rc);
+      json = Object.assign(json, rc);
     }
     return {rcFile, rc: json};
   } catch (err) {
@@ -36,7 +34,7 @@ function rcLookup(dir: string, rc?: object): object {
   }
 }
 
-function nfLookup(dir: string, rc?: object, rcDir?: string): object {
+function nfLookup(dir: string, rc?: Object, rcDir?: string): Object {
   let nfFile;
   try {
     if (rc && rcDir) {
@@ -59,7 +57,7 @@ function nfLookup(dir: string, rc?: object, rcDir?: string): object {
   return {nfFile, rc};
 }
 
-function localModuleLookup(paths: Array<string>): object {
+function localModuleLookup(paths: Array<string>): Object {
   let modulePath = findPath(NATRON_MODULE_BIN, paths);
   if (!modulePath) {
     throw new Error("Local Natron not found");
@@ -72,7 +70,7 @@ function localModuleLookup(paths: Array<string>): object {
   }
 }
 
-export function lookup(dir: string): object {
+export function lookup(dir: string): Object {
   for (let pre, cur = resolve(dir); cur !== pre; [pre, cur] = [cur, dirname(cur)]) {
     let rcFile, nfFile, rc, modulePath;
     try {

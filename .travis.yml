@@ -2,15 +2,17 @@
 # .travis.yml
 #
 
-language: node_js
+language: "node_js"
 
 node_js:
-  - 0.12
-  - 4.0
+  - "stable"
+  - "4.2" # Argon
+  - "0.12"
 
 install:
-  - npm install
-  - npm run test-install
+  - "npm install"
+  - "npm install eslint babel-eslint natronjs/eslint-config-natron"
+  - "npm --prefix build install"
 
 script:
-  - npm test
+  - "node_modules/.bin/eslint ."
